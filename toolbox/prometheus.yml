@@ -1,0 +1,35 @@
+# check sample config here
+# https://github.com/prometheus/prometheus/blob/release-2.1/config/testdata/conf.good.yml
+
+# my global config
+global:
+  scrape_interval:     5s
+  evaluation_interval: 15s
+
+# Alert manager configuration
+rule_files:
+- /etc/prometheus/sample.rule
+
+scrape_configs:
+- job_name: quote-service
+
+  honor_labels: true
+  # scrape_interval is defined by the configured global (15s).
+  # scrape_timeout is defined by the global default (10s).
+
+  # metrics_path defaults to '/metrics'
+  # scheme defaults to 'http'.
+
+  metrics_path: /prometheus
+  scheme: http
+
+  static_configs:
+  - targets: ['movie-catalog-service:8080', 'ratings-data-service:8080', 'movie-info-service:8080']
+
+#Configuration of the alert manager
+alerting:
+  alertmanagers:
+  - scheme: http
+    static_configs:
+    - targets:
+      - "host.docker.internal:9093"
