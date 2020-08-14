@@ -1,0 +1,16 @@
+ribbon:
+    eureka:
+        enabled: false
+server:
+    port: 8080
+spring:
+    application:
+        name: zuul
+zuul:
+    routes:
+        movie-catalog:
+            url: http://movie-catalog-service:8080
+        movie-info:
+            url: http://movie-info-service:8080
+        ratings-data:
+            url: http://ratings-data-service:8080

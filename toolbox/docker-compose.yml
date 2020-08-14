@@ -49,6 +49,12 @@ services:
     ports:
       - 8083:8080
 
+  zuul:
+    image: gspear/zuul:0.0.1-SNAPSHOT
+    container_name: zuul
+    ports:
+      - 80:8080
+
 volumes:
   prometheus_data: {}
   grafana_data: {}
